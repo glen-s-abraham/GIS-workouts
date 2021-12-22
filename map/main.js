@@ -12,6 +12,13 @@ import sync from 'ol-hashed';
 //For our feature editor, we want users to be able to import their
 //own data for editing. We'll use the DragAndDrop interaction for this
 import DragAndDrop from 'ol/interaction/DragAndDrop';
+//Now that we have a way for users to load data into the editor, we want to let them edit
+//features. We'll use the Modify interaction for this, 
+//configuring it to modify features on our vector source.
+import Modify from 'ol/interaction/Modify';
+//Our feature editor can now be used for loading data and modifying features. Next up, 
+//we'll add a Draw interaction to allow people to draw new features and add them to our source.
+import Draw from 'ol/interaction/Draw';
 
 // const map = new Map({
 //   view:new View({
@@ -60,5 +67,11 @@ map.addInteraction(
     formatConstructors:[GeoJson]
   })
 );
+
+map.addInteraction(
+  new Modify({
+    source:userSource
+  })
+)
 
 sync(map);
