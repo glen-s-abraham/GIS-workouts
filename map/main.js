@@ -35,3 +35,30 @@ import DragAndDrop from 'ol/interaction/DragAndDrop';
 //   target:'map'
 // });
 
+const map= new Map({
+  view:new View({
+    center:[0,0],
+    zoom:1
+  }),
+  target:'map'
+})
+
+//For user entered data
+const userSource = new VectorSource()
+const userLayer = new VectorLayer({
+  source:userSource
+});
+
+map.addLayer(userLayer);
+
+//we'll create a drag and drop interaction, 
+//configure it to work with our vector source, and add it to the map
+
+map.addInteraction(
+  new DragAndDrop({
+    source:userSource,
+    formatConstructors:[GeoJson]
+  })
+);
+
+sync(map);
