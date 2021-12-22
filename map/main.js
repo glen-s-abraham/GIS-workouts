@@ -21,6 +21,9 @@ import Modify from 'ol/interaction/Modify';
 import Draw from 'ol/interaction/Draw';
 //The Snap interaction can be used to help preserve topology while drawing and editing features.
 import Snap from 'ol/interaction/Snap';
+//Default Styling can be controlled by providing a style option to your vector layer and editing 
+//interactions.
+import {Style, Fill, Stroke} from 'ol/style';
 
 
 // const map = new Map({
@@ -50,6 +53,11 @@ const map= new Map({
     center:[0,0],
     zoom:1
   }),
+  layers:[
+    new TileLayer({
+      source:new OSM()
+    })
+  ],
   target:'map'
 })
 
@@ -90,6 +98,20 @@ map.addInteraction(
   })
 );
 
+//Clear button 
+document.getElementById("clear").addEventListener("click",()=>{
+  userSource.clear();
+});
+
+
+//Download logic
+const download=document.getElementById("download");
+const format = new GeoJson({featureProjection:'EPSG:3857'});
+userSource.on("change",()=>{
+  const features = userSource.getFeatures();
+  const json = format.writeFeatures(features);
+  download.href = 'data:application/json;charset=utf-8,' + encodeURIComponent(json);
+});
 
 
 sync(map);
