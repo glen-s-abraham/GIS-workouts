@@ -19,6 +19,9 @@ import Modify from 'ol/interaction/Modify';
 //Our feature editor can now be used for loading data and modifying features. Next up, 
 //we'll add a Draw interaction to allow people to draw new features and add them to our source.
 import Draw from 'ol/interaction/Draw';
+//The Snap interaction can be used to help preserve topology while drawing and editing features.
+import Snap from 'ol/interaction/Snap';
+
 
 // const map = new Map({
 //   view:new View({
@@ -72,6 +75,21 @@ map.addInteraction(
   new Modify({
     source:userSource
   })
-)
+);
+
+map.addInteraction(
+  new Draw({
+    type:'Polygon',
+    source:userSource
+  })
+);
+
+map.addInteraction(
+  new Snap({
+    source:userSource
+  })
+);
+
+
 
 sync(map);
