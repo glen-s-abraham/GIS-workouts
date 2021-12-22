@@ -43,7 +43,7 @@ geometryType.addEventListener("change",()=>{
 
 document.getElementById('undo').addEventListener("click", ()=> {
   draw.removeLastPoint();
-  console.log("undo");
+  vectorSource.clear();
 });
 
 addInteraction();
