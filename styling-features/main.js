@@ -25,28 +25,31 @@ const map = new Map({
 });
 
 
+const customFeatureStyle = [
+  new Style({
+    fill:new Fill({
+      color:"red"
+    })
+  }),  
+  new Style({
+    stroke:new Stroke({
+      color:"red",
+      width:3
+    })
+  })
+]
+
 //Custom feature generator
 let generateCustomFeature=(coordinates)=>{
-    var innerCircleStyle = new Style({
-      fill:new Fill({
-        color:"red"
-      })
-    });
     
-    var outerCircleStyle = new Style({
-      stroke:new Stroke({
-        color:"red",
-        width:3
-      })
-    })
     
     const innerCircle = new Feature({
       geometry:new Circle(coordinates,80000),
     })
-    innerCircle.setStyle(innerCircleStyle);
+    innerCircle.setStyle(customFeatureStyle);
     
     let outerCircle = new Feature({geometry:new Circle(coordinates,500000)});
-    outerCircle.setStyle(outerCircleStyle);
+    outerCircle.setStyle(customFeatureStyle[1]);
 
     return [innerCircle,outerCircle];
 }
