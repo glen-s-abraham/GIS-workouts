@@ -63,8 +63,18 @@ const map= new Map({
 
 //For user entered data
 const userSource = new VectorSource()
+// const userLayer = new VectorLayer({
+//   source:userSource
+// });
+
+
+//Static styling
 const userLayer = new VectorLayer({
-  source:userSource
+  source:userSource,
+  style:new Style({
+    fill:new Fill({color:'red'}),
+    stroke:new Stroke({color:'white'})
+  })
 });
 
 map.addLayer(userLayer);
