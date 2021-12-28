@@ -10,6 +10,8 @@ import Circle from 'ol/geom/Circle';
 import Style from 'ol/style/Style';
 import Fill from 'ol/style/Fill';
 import Stroke from 'ol/style/Stroke';
+import GeometryCollection from 'ol/geom/GeometryCollection';
+
 
 const map = new Map({
   target: 'map',
@@ -25,31 +27,36 @@ const map = new Map({
 });
 
 
-const customFeatureStyle = [
-  new Style({
-    fill:new Fill({
-      color:"red"
-    })
-  }),  
-  new Style({
-    stroke:new Stroke({
-      color:"red",
-      width:3
-    })
-  })
-]
+
 
 //Custom feature generator
 let generateCustomFeature=(coordinates)=>{
     
+  const customFeatureStyle = [
+    new Style({
+      fill:new Fill({
+        color:"red"
+      })
+    }),  
+    new Style({
+      stroke:new Stroke({
+        color:"red",
+        width:3
+      })
+    })
+  ]
     
     const innerCircle = new Feature({
       geometry:new Circle(coordinates,80000),
     })
     innerCircle.setStyle(customFeatureStyle);
     
-    let outerCircle = new Feature({geometry:new Circle(coordinates,500000)});
+    let outerCircle = new Feature({
+      geometry:new Circle(coordinates,500000),
+    });
     outerCircle.setStyle(customFeatureStyle[1]);
+    
+    
 
     return [innerCircle,outerCircle];
 }
